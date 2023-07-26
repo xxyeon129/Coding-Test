@@ -10,7 +10,7 @@ function solution(s) {
         
         answer = answer.replace(numberWords[i], i);
         
-        if(answer.indexOf(numberWords[i]) !== -1) {
+        while(answer.indexOf(numberWords[i]) !== -1){
             answer = answer.replace(numberWords[i], i);
         }
     }
