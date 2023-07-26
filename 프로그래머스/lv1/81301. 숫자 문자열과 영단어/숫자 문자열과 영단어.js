@@ -8,8 +8,6 @@ function solution(s) {
             continue;
         };
         
-        answer = answer.replace(numberWords[i], i);
-        
         while(answer.indexOf(numberWords[i]) !== -1){
             answer = answer.replace(numberWords[i], i);
         }
