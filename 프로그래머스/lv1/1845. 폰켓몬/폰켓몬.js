@@ -1,6 +1,6 @@
 function solution(nums) {
     const pick = nums.length / 2;
-    const numsLength = [...new Set(nums)].length;
+    const numsSet = new Set(nums);
     
-    return numsLength < pick ? numsLength : pick;
+    return numsSet.size < pick ? numsSet.size : pick;
 }
