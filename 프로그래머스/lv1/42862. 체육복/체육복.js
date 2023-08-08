@@ -1,6 +1,5 @@
 function deleteLostElement(lost, number) {
     const deleteIndex = lost.findIndex((el) => el === number);
-    if(deleteIndex === -1) return;
     
     lost.splice(deleteIndex, 1);
 }
