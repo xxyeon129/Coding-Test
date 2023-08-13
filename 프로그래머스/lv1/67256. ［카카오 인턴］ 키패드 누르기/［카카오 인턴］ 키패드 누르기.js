@@ -1,65 +1,40 @@
 function solution(numbers, hand) {
     let answer = '';
     
-    const keypad = [
-        [1, 2, 3],
-        [4, 5, 6],
-        [7, 8, 9],
-        ['*', 0, '#']
-    ]
-    
-    const right = [3, 2];
-    const left = [3, 0];
+    const keypad = {
+        1: [0, 0], 2: [0, 1], 3: [0, 2],
+        4: [1, 0], 5: [1, 1], 6: [1, 2],
+        7: [2, 0], 8: [2, 1], 9: [2, 2],
+        0: [3, 1]
+    }
+
+    let rightPosition = [3, 2];
+    let leftPosition = [3, 0];
     
     for(let i = 0; i < numbers.length; i++){
         const numberPosition = numbers[i];
         
         if(numberPosition === 1 || numberPosition === 4 || numberPosition === 7) {
             answer += 'L';
-
-            keypad.forEach((row, index) => {
-                for(let i = 0; i < row.length; i++){
-                    if(row[i] === numberPosition){
-                        left.splice(0, 1, index);
-                        left.splice(1, 1, i);
-                    }
-                }
-            });
+            leftPosition = keypad[numberPosition];
             
         }else if(numberPosition === 3 || numberPosition === 6 || numberPosition === 9){
             answer += 'R';
-            
-            keypad.forEach((row, index) => {
-                for(let i = 0; i < row.length; i++){
-                    if(row[i] === numberPosition){
-                        right.splice(0, 1, index);
-                        right.splice(1, 1, i);
-                    }
-                }
-            });
+            rightPosition = keypad[numberPosition];
             
         }else{
-            for(let j = 0; j < keypad.length; j++){
+            const rightLength = Math.abs(keypad[numberPosition][0] - rightPosition[0]) + Math.abs(keypad[numberPosition][1] - rightPosition[1]);
+            const leftLength = Math.abs(keypad[numberPosition][0] - leftPosition[0]) + Math.abs(keypad[numberPosition][1] - leftPosition[1]);
             
-                keypad.forEach((row, index) => {
-                    if(row[j] === numberPosition){
-
-                        const rightLength = Math.abs(index - right[0]) + Math.abs(j - right[1]);
-                        const leftLength = Math.abs(index - left[0]) + Math.abs(j - left[1]);
-                   
-                        if(leftLength < rightLength || (leftLength === rightLength && hand === 'left')){
-                            answer += 'L';
-                            left.splice(0, 1, index);
-                            left.splice(1, 1, j);
-                        }else {
-                            answer += 'R';
-                            right.splice(0, 1, index);
-                            right.splice(1, 1, j);
-                        }
-                    }
-                });
+            if(leftLength < rightLength || (leftLength === rightLength && hand === 'left')){
+                answer += 'L';
+                leftPosition = keypad[numberPosition];
+            }else {
+                answer += 'R';
+                 rightPosition = keypad[numberPosition];
             }
-        }  
+            
+        }
     }
         
     return answer;
