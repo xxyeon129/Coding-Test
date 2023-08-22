@@ -23,8 +23,7 @@ function solution(park, routes) {
         
         if(routes[i][0] === "E"){
             for(let j = 0; j <= move; j++){
-                if(typeof(parkMap[point[0]]) === "undefined"
-                   || parkMap[point[0]][point[1] + j] === "X"
+                if(parkMap[point[0]][point[1] + j] === "X"
                    || typeof(parkMap[point[0]][point[1] + j]) === "undefined") break;
                 if(j === move) point = [point[0], point[1] + move];
             }
@@ -32,8 +31,7 @@ function solution(park, routes) {
         
         if(routes[i][0] === "W"){
             for(let j = 0; j <= move; j++){
-                if(typeof(parkMap[point[0]]) === "undefined"
-                   || parkMap[point[0]][point[1] - j] === "X"
+                if(parkMap[point[0]][point[1] - j] === "X"
                    || typeof(parkMap[point[0]][point[1] - j]) === "undefined") break;
                 if(j === move) point = [point[0], point[1] - move];
             }
