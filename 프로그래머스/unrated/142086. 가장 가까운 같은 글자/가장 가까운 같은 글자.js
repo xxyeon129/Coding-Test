@@ -7,7 +7,8 @@ function solution(s) {
             result.push(-1);
         }else{
             const findStrArr = sArray.slice(0, index).reverse();
-            result.push((findStrArr.indexOf(el)) + 1);
+            const distance = findStrArr.indexOf(el) + 1;
+            result.push(distance);
         }
     });
     
