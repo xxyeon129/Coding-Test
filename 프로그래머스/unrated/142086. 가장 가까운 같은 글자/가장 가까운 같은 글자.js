@@ -1,6 +1,6 @@
 function solution(s) {
     const result = [];
-    const sArray = s.split('');
+    const sArray = [...s];
     
     sArray.forEach((el, index) => {
         if(sArray.indexOf(el) === index) {
