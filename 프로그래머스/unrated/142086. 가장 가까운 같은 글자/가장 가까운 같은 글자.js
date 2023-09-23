@@ -5,8 +5,8 @@ function solution(s) {
         if(sArray.indexOf(el) === index) {
             return -1;
         }else{
-            const findStrArr = sArray.slice(0, index).reverse();
-            const distance = findStrArr.indexOf(el) + 1;
+            const findStrArr = sArray.slice(0, index);
+            const distance = index - findStrArr.lastIndexOf(el);
             return distance;
         }
     });
