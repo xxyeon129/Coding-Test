@@ -5,7 +5,5 @@ function solution(food) {
         result += `${i}`.repeat(Math.floor(food[i] / 2));
     }
     
-    result = result + '0' + result.split("").reverse().join("");
-    
-    return result;
+    return result + '0' + [...result].reverse().join("");
 }
