@@ -1,10 +1,9 @@
 function solution(a, b, n) {
     let result = 0;
-    let currentColaNum = n;
     
-    while(currentColaNum >= a){
-        const getColaNum = Math.floor(currentColaNum / a) * b;
-        currentColaNum = (currentColaNum % a) + getColaNum
+    while(n >= a){
+        const getColaNum = Math.floor(n / a) * b;
+        n = (n % a) + getColaNum
         result += getColaNum;
     }
     
