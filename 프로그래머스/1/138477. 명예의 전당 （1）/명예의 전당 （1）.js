@@ -1,30 +1,22 @@
-const getMinScore = (arr) => Math.min.apply(null, arr);
-
 function solution(k, score) {
     const answer = [];
+    const honorArr = [];
     
-    const honorArr = [...score.slice(0, k)];
-    let minScore = score[0];
-    
-    const answerLengthBeforeK = k > score.length ? score.length : k;
-    
-    for(let i = 0; i < answerLengthBeforeK; i++){
-        if(score[i] < minScore) {
-            answer.push(score[i]);
-            minScore = score[i];
-        }else{
-            answer.push(minScore);
-        }
+    const getHonorArr = (scoreElement) => {
+        honorArr.push(scoreElement);
+        honorArr.sort((a,b) => b-a);
     }
     
-    score.slice(k).forEach((e) => {
-        if(e > minScore) {
-            honorArr.splice(honorArr.indexOf(minScore), 1);
-            honorArr.push(e);
+    score.forEach((e) => {
+        if(honorArr.length < k) {
+            getHonorArr(e);
+            answer.push(honorArr[honorArr.length - 1]);
+        } else {
+            getHonorArr(e);
+            honorArr.pop();
+            answer.push(honorArr[honorArr.length - 1]);
         }
-        minScore = getMinScore(honorArr);
-        answer.push(minScore);
-    })    
+    })
     
     return answer;
 }
