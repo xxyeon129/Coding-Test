@@ -1,5 +1,7 @@
 function solution(friends, gifts) {
-    const giveTakeArr = friends.map(() => Array(friends.length).fill(0));
+    const friendsLength = friends.length;
+    
+    const giveTakeArr = Array.from({length: friendsLength}, () => Array(friendsLength).fill(0));
     
     const giftCountObj = friends.reduce((acc, cur) => {
         acc[cur] = [0, 0, 0];
@@ -7,16 +9,16 @@ function solution(friends, gifts) {
     }, {});
     
     gifts.forEach(gift => {
-        const friendArr = gift.split(" ");
+        const [giver, taker] = gift.split(" ");
     
-        giveTakeArr[friends.indexOf(friendArr[0])][friends.indexOf(friendArr[1])] += 1;
+        giveTakeArr[friends.indexOf(giver)][friends.indexOf(taker)] += 1;
         
-        giftCountObj[`${friendArr[0]}`][0] += 1;
-        giftCountObj[`${friendArr[1]}`][1] += 1;
+        giftCountObj[giver][0] += 1;
+        giftCountObj[taker][1] += 1;
     });
     
-    for (const giveFriendIdx in friends) {
-        for(let takeFriendIdx = 0; takeFriendIdx < friends.length; takeFriendIdx++){
+    for (let giveFriendIdx = 0; giveFriendIdx < friendsLength; giveFriendIdx++) {
+        for(let takeFriendIdx = 0; takeFriendIdx < friendsLength; takeFriendIdx++){
             if (giveFriendIdx !== takeFriendIdx){
                  if(giveTakeArr[giveFriendIdx][takeFriendIdx] > giveTakeArr[takeFriendIdx][giveFriendIdx]) {
                      giftCountObj[`${friends[giveFriendIdx]}`][2] += 1;
@@ -32,6 +34,6 @@ function solution(friends, gifts) {
         }
     }
     
-    const takeGiftsCount = Object.values(giftCountObj).map(arr => arr[arr.length -1]);
+    const takeGiftsCount = Object.values(giftCountObj).map(arr => arr[2]);
     return Math.max(...takeGiftsCount);
 }
