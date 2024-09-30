@@ -1,7 +1,5 @@
 function solution(s) {
-    const sArr = s.split(' ').map(s => {
-        return +s;
-    }).sort((a, b) => a - b);
+    const sArr = s.split(' ');
     
-    return `${sArr[0]} ${sArr[sArr.length -1]}`;
+    return `${Math.min(...sArr)} ${Math.max(...sArr)}`;
 }
