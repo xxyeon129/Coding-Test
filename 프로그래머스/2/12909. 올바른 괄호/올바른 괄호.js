@@ -1,18 +1,19 @@
 function solution(s){
-    const sArr = s.split('');
     const stack = [];
     
-    for(let i = 0; i < sArr.length; i++) {
-        if(sArr[i] === '(') {
-            stack.push(sArr[i]);
+    for(let i = 0; i < s.length; i++) {
+        const char = s[i];
+        
+        if(char === '(') {
+            stack.push(char);
         }else {
             if(stack[stack.length - 1] === '(') {
                 stack.pop();
             }else {
-                stack.push(sArr[i]);
+                return false;
             } 
         }
     } 
     
-    return stack.length === 0 ? true : false;
+    return stack.length === 0;
 }
