@@ -4,23 +4,22 @@ function solution(fees, records) {
     // records 같은 차량번호 기록끼리 묶어서 2차원 배열에 저장
     const recordsObj = {};
     for(let i = 0; i < records.length; i++) {
-        const [time, carNum] = records[i].split(' ');
+        let [time, carNum] = records[i].split(' ');
         const [hour, minute] = time.split(':');
-        const allMinute = (hour*60) + +minute;
+        time = (hour*60) + +minute;
         
         if(!recordsObj[carNum]) {
             recordsObj[carNum] = [];
         }
         
-        recordsObj[carNum].push(allMinute);
+        recordsObj[carNum].push(time);
     }
 
     // 차번호 작은 순서
-    const sortIdx = Object.keys(recordsObj).sort();
+    const sortedCars = Object.keys(recordsObj).sort();
 
-    for (carNum in recordsObj) {
+    sortedCars.forEach(carNum => {
         const timeArr = recordsObj[carNum];
-        const index = sortIdx.indexOf(carNum);
         
         // 출차 시간 없는 경우 23:59 출차 간주
         if(timeArr.length % 2) {
@@ -35,11 +34,11 @@ function solution(fees, records) {
         
         // 주차요금 계산
         if(allTime <= fees[0]) {
-            answer[index] = fees[1];
+            answer.push(fees[1]);
         }else {
-            answer[index] = fees[1] + Math.ceil((allTime-fees[0])/fees[2]) * fees[3];
+            answer.push(Math.ceil((allTime-fees[0])/fees[2]) * fees[3] + fees[1]);
         }
-    }
+    })
     
     return answer;
 }
